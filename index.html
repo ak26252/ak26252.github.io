@@ -1,1 +1,54 @@
-Hello World
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
+</head>
+
+<body onload="">
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const name = urlParams.get('name');
+</script>
+
+<h1 id="pagebanner" style="font-size:50px;margin-top:0px;margin-bottom:40px;">PWNFT</h1>
+
+<div>
+    <img class ="nft" id="nftimage" src="https://en.meming.world/images/en/thumb/1/13/Thumbs_Up_Crying_Cat.jpg/300px-Thumbs_Up_Crying_Cat.jpg" alt="#1337" height="300" width="300">
+
+    <div class="sidetext">
+        <p id="nfttitle" style="font-size:25px"><strong>DamnVuln #</strong></p>
+            <p id="tokenID" style="font-size:25px"><strong>1337</strong></p>
+    </div>
+    
+    <div class="sidetext">
+        <p>Owner:</p>
+        <p id="owneraddress">No owner yet, mint a new token!</p>
+    </div>
+    
+    <div class="sidetext">
+        <p>Description:</p>
+        <p id="nftdescription">This is a very cool NFT!</p>  
+    </div>
+    
+    <div class="sidetext">
+        <p>Current price:</p>
+        <p id="nftprice"><strong>13.37 ETH</strong></p>
+    </div>
+</div>
+
+<div class="likesection">
+    <p>Likes: </p>
+    <label id="count"></label>
+    <br></br>
+    <button onclick="likeFunc()">Like</button>
+    <nobr><button onclick="">Unlike</button></nobr>
+    <nobr><button onclick="">Update</button></nobr>
+</div>
+
+<div class="connectbutton">
+    <input type="button" id="connect" onClick="" value="Connect Wallet/Mint New Token">
+    <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
+</div>
