@@ -2,7 +2,7 @@ div.sidetext{
     margin-left: 350px;
     margin-bottom: 50px;
 }
-div.likesection{
+div.ipfshash{
     margin-left: 350px;
     margin-bottom: 50px;
 }
@@ -13,8 +13,4 @@ div.connectbutton{
 p{
     display: inline;
     white-space: nowrap;
-}
-img.nft{
-    float: left;
-    border: 5px solid #555;
 }
