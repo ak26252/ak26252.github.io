@@ -1,0 +1,20 @@
+div.sidetext{
+    margin-left: 350px;
+    margin-bottom: 50px;
+}
+div.likesection{
+    margin-left: 350px;
+    margin-bottom: 50px;
+}
+div.connectbutton{
+    margin-left: 350px;
+    margin-bottom: 50px;
+}
+p{
+    display: inline;
+    white-space: nowrap;
+}
+img.nft{
+    float: left;
+    border: 5px solid #555;
+}
