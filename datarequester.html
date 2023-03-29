@@ -40,6 +40,20 @@
 </div>
 
 <div class="connectbutton">
-    <input type="button" id="connect" onClick="" value="Connect Wallet">
+    <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
     <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
 </div>
+
+<script>
+    let web3;
+    const connectWallet = async () => {
+        if(window.ethereum){
+            await window.ethereum.request({method: "eth_requestAccounts"});
+            web3 = new Web3(window.ethereum);
+            const account = web3.eth.accounts;
+            // const walletAddress = account.givenProvider.selectAddress;
+            const walletAddress = await web3.eth.getAccounts();
+            console.log("Wallet Address: %s", walletAddress[0]);
+        }
+    }
+</script>
