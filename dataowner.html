@@ -60,23 +60,34 @@
 
 <script>
     var contractAbi = [
-      {
-        inputs: [],
-        name: 'myMessage',
-        outputs: [ [Object] ],
-        stateMutability: 'view',
-        type: 'function',
-        constant: true
-      },
-      {
-        inputs: [ [Object] ],
-        name: 'Hi',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function'
-      }
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "input",
+                    "type": "string"
+                }
+            ],
+            "name": "Hi",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "myMessage",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
     ]
-    var contractAddress = "0xEf607409e90D4091De81A78E303140382DbE2aD4";
+    var contractAddress = "0xe7a98A252DC57106AA0ecd978a1256c021F44BBE";
 
     const setupFunc = async() => {
         if(window.ethereum){
@@ -84,6 +95,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
+                console.log("attempt 1");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
