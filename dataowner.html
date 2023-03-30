@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 </head>
 
-<body onload="">
+<body onload="setupFunc()">
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -32,12 +32,86 @@
 </div>
 
 <div class="ipfshash">
-  	<p>IPFS File Hash: </p>
-  	<input type="text" id="uploadhash" name="uploadhash"><br><br>
-    <button onclick="">Upload Hash</button>
+    <form>
+        <p>IPFS File Hash: </p>
+        <input type="text" id="uploadhash" name="uploadhash"><br><br>
+        <button onclick="">Upload Hash</button>
+    </form>
 </div>
 
 <div class="connectbutton">
-    <input type="button" id="connect" onClick="" value="Connect Wallet">
+    <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
     <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
 </div>
+
+<script>
+    let web3;
+    const connectWallet = async () => {
+        if(window.ethereum){
+            await window.ethereum.request({method: "eth_requestAccounts"});
+            web3 = new Web3(window.ethereum);
+            const account = web3.eth.accounts;
+            // const walletAddress = account.givenProvider.selectAddress;
+            const walletAddress = await web3.eth.getAccounts();
+            console.log("Wallet Address: %s", walletAddress[0]);
+        }
+    }
+</script>
+
+<script>
+    var contractAbi = [
+        {
+          inputs: [],
+          name: 'message',
+          outputs: [Array],
+          stateMutability: 'view',
+          type: 'function',
+          constant: true,
+          payable: undefined,
+          signature: '0xe21f37ce'
+        },
+        {
+          inputs: [],
+          name: 'Hi',
+          outputs: [],
+          stateMutability: 'nonpayable',
+          type: 'function',
+          constant: undefined,
+          payable: undefined,
+          signature: '0x9a6e22f7'
+        }
+    ]
+    var contractAddress = "0x325c941Cf32163a1f463dc65C1F253d23EFa8e42";
+
+    const setupFunc = async() => {
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+                console.log("Wallet connected :)");
+                //console.log(checkWallet);
+                //console.log(checkWallet[0]);
+
+                //load player address
+                const playerAddress = checkWallet[0];
+                document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const ctc = new web3.eth.Contract(contractAbi, contractAddress);
+
+                //get mmessage
+                const msg = await ctc.methods.message().call();
+                document.getElementById("notification").innerHTML = msg;
+            }   
+            else{
+                alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+</script>
