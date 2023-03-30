@@ -93,7 +93,7 @@
                 //console.log(checkWallet[0]);
 
                 //load player address
-                // const playerAddress = checkWallet[0];
+                const playerAddress = checkWallet[0];
                 // document.getElementById("owneraddress").innerHTML = playerAddress;
 
                 //load contract
@@ -101,6 +101,7 @@
                 console.log(ctc);
 
                 //get mmessage
+                const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
                 const msg = await ctc.methods.myMessage().call();
                 document.getElementById("notification").innerHTML = msg;
             }   
