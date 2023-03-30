@@ -60,28 +60,29 @@
 
 <script>
     var contractAbi = [
-        {
-        inputs: [],
-        name: 'myMessage',
-        outputs: [ [Object] ],
-        stateMutability: 'view',
-        type: 'function',
-        constant: true,
-        payable: undefined,
-        signature: '0x1b008a9f'
-      },
-      {
-        inputs: [],
-        name: 'Hi',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
-        constant: undefined,
-        payable: undefined,
-        signature: '0x9a6e22f7'
-      }
-    ]
-    var contractAddress = "0x6772eA97aA924c578209f11462331889AAB87d8c";
+  {
+    inputs: [],
+    name: 'myMessage',
+    outputs: [ [Object] ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+    payable: undefined,
+    signature: '0x1b008a9f'
+  },
+  {
+    inputs: [ [Object] ],
+    name: 'Hi',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+    constant: undefined,
+    payable: undefined,
+    signature: '0x288d740d'
+  }
+]
+
+    var contractAddress = "0xEf607409e90D4091De81A78E303140382DbE2aD4";
 
     const setupFunc = async() => {
         if(window.ethereum){
