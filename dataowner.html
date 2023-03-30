@@ -62,13 +62,13 @@
     var contractAbi = [
         {
           inputs: [],
-          name: 'message',
+          name: 'myMessage',
           outputs: [Array],
           stateMutability: 'view',
           type: 'function',
           constant: true,
           payable: undefined,
-          signature: '0xe21f37ce'
+          signature: '0x1b008a9f'
         },
         {
           inputs: [],
@@ -81,7 +81,7 @@
           signature: '0x9a6e22f7'
         }
     ]
-    var contractAddress = "0x325c941Cf32163a1f463dc65C1F253d23EFa8e42";
+    var contractAddress = "0x6772eA97aA924c578209f11462331889AAB87d8c";
 
     const setupFunc = async() => {
         if(window.ethereum){
@@ -98,10 +98,10 @@
 
                 //load contract
                 const ctc = new web3.eth.Contract(contractAbi, contractAddress);
-                console.log("contract loaded");
+                console.log(ctc);
 
                 //get mmessage
-                const msg =await ctc.methods.message().call();
+                const msg = await ctc.methods.myMessage().call();
                 document.getElementById("notification").innerHTML = msg;
             }   
             else{
