@@ -98,9 +98,10 @@
 
                 //load contract
                 const ctc = new web3.eth.Contract(contractAbi, contractAddress);
+                console.log("contract loaded");
 
                 //get mmessage
-                const msg = await ctc.methods.message().call();
+                const msg =await ctc.methods.message().call();
                 document.getElementById("notification").innerHTML = msg;
             }   
             else{
