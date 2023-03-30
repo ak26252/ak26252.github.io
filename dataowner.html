@@ -95,7 +95,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 1");
+                console.log("attempt 2");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
@@ -108,7 +108,7 @@
                 console.log(ctc);
 
                 //get mmessage
-                const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
+                //const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
                 const msg = await ctc.methods.myMessage().call();
                 document.getElementById("notification").innerHTML = msg;
             }   
