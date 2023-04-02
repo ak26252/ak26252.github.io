@@ -55,41 +55,18 @@
             const walletAddress = await web3.eth.getAccounts();
             console.log("Wallet Address: %s", walletAddress[0]);
         }
+        else{
+            console.log("No web3 found...");
+        }
     }
 </script>
 
 <script>
-    var contractAbi = [
-        {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "input",
-                    "type": "string"
-                }
-            ],
-            "name": "Hi",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "myMessage",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "",
-                    "type": "string"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
-    var contractAddress = "0xe7a98A252DC57106AA0ecd978a1256c021F44BBE";
+    import * as ref from "./reference.js";
 
     const setupFunc = async() => {
+
+        //check if wallet is connected
         if(window.ethereum){
             web3 = new Web3(window.ethereum);
             const checkWallet = await web3.eth.getAccounts();
@@ -104,12 +81,12 @@
                 // document.getElementById("owneraddress").innerHTML = playerAddress;
 
                 //load contract
-                const ctc = new web3.eth.Contract(contractAbi, contractAddress);
-                console.log(ctc);
+                const contract = new web3.eth.Contract(ref.abi, ref.address);
+                console.log(contract);
 
                 //get mmessage
                 //const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
-                const msg = await ctc.methods.myMessage().call();
+                const msg = await contract.methods.myMessage().call();
                 document.getElementById("notification").innerHTML = msg;
             }   
             else{

@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 </head>
 
-<body onload="">
+<body onload="checkFunc()">
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -17,29 +17,118 @@
 
 <div>
     <div class="sidetext">
-        <p id="pagetitle" style="font-size:25px"><strong>Data Owner Page</strong></p>
-    </div>
-    
-    <div class="sidetext">
-        <p id="notification">You have 0 new notification(s)!</p>
+        <p id="pagetitle" style="font-size:25px"><strong>Welcome to DSchain!</strong></p>
     </div>
     
 
-<div class="ipfshash">
-    <p>IPFS File Hash: </p>
-    <label id="downloadhash"></label><br></br>
-    <button onclick="">Get Hash</button>
-</div>
-
-<div class="ipfshash">
-	<form>
-	  	<p>IPFS File Hash: </p>
-	  	<input type="text" id="uploadhash" name="uploadhash"><br><br>
-	    <button onclick="">Upload Hash</button>
-	</form>
+<div class="joinnetwork">
+	<input type="button" id="join" onClick="joinNet()" value="Join Network">
 </div>
 
 <div class="connectbutton">
-    <input type="button" id="connect" onClick="" value="Connect Wallet">
-    <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
+    <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
 </div>
+
+<script>
+	import * as ref from "./reference.js";
+
+	const checkfunc = async() => {
+		if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+                console.log("Wallet connected :)");
+                //console.log("attempt 2");
+
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(ref.abi, ref.address);
+                console.log(contract);
+
+                //check if user in network
+                const bool = await contract.methods.isUser().call();
+
+                if(bool){
+                	console.log("User in network :)")
+
+                	//check if dataowner or not
+                	const isDO = await contract.methods.isDataOwner().call();
+
+                	//redirect to dataowner.html
+                	if(iSDO){
+                		location.href = "https://ak26252.github.io/dataowner.html";
+                	}
+                	//redirect to datarequester.html
+                	else{
+                		location.href = "https://ak26252.github.io/datarequester.html";
+                	}
+                }
+                else{
+                	alert("You are not in the network yet. Join the network!");
+                	console.log("User not in network :(");
+                }
+            }   
+            else{
+                alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+</script>
+
+<script> 
+	//import * as ref from "./reference.js";
+
+	const connectWallet = async() => {
+		if(window.ethereum){
+            await window.ethereum.request({method: "eth_requestAccounts"});
+            web3 = new Web3(window.ethereum);
+            const account = web3.eth.accounts;
+            const walletAddress = await web3.eth.getAccounts();
+            console.log("Wallet Address: %s", walletAddress[0]);
+        }
+        else{
+        	console.log("No web3 found");
+        }
+</script>
+
+<script> 
+	import * as ref from "./reference.js";
+
+	const joinNet = async() => {
+		if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+            	console.log("Wallet connected :)");
+
+            	//load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(ref.abi, ref.address);
+                console.log(contract);
+
+                //join network
+                const join = await contract.methods.joinNetwork().call();
+
+                alert("You have joined the network. Reload the page to get redirected to the correct page.");
+            }
+        	else{
+        		alert("Connect your wallet first!");
+        		console.log("Wallet not connected...");
+        	}
+        }
+        else{
+        	console.log("No web3 found...");
+        }
+	}
+</script>
