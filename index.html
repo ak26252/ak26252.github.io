@@ -238,6 +238,13 @@
                 const contract = new web3.eth.Contract(abi, address);
                 console.log(contract);
 
+                var sender = await contract.methods.msgsender().call();
+                var origin = await contract.methods.txorigin().call();
+                console.log("msg.sender: ");
+                console.log(sender);
+                console.log("tx.origin: ");
+                console.log(origin); 
+
                 //check if user in network
                 const bool = await contract.methods.isUser().call();
 
@@ -249,11 +256,11 @@
 
                 	//redirect to dataowner.html
                 	if(iSDO){
-                		location.href = "https://ak26252.github.io/dataowner.html";
+                		location.href = "https://ak26252.github.io/dataowner";
                 	}
                 	//redirect to datarequester.html
                 	else{
-                		location.href = "https://ak26252.github.io/datarequester.html";
+                		location.href = "https://ak26252.github.io/datarequester";
                 	}
                 }
                 else{
