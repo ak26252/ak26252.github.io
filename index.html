@@ -305,9 +305,10 @@
 
                 	//check if dataowner or not
                 	const isDO = await contract.methods.isDataOwner(playerAddress).call();
+                	console.log(isDo);
 
                 	//redirect to dataowner.html
-                	if(iSDO){
+                	if(isDO){
                 		location.href = "https://ak26252.github.io/dataowner";
                 	}
                 	//redirect to datarequester.html
