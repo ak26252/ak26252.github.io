@@ -126,13 +126,13 @@
                 // document.getElementById("owneraddress").innerHTML = playerAddress;
 
                 //load contract
-                const contract = new web3.eth.Contract(ref.abi, ref.address);
-                console.log(contract);
+                //const contract = new web3.eth.Contract(ref.abi, ref.address);
+                //console.log(contract);
 
                 //get mmessage
                 //const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
-                const msg = await contract.methods.myMessage().call();
-                document.getElementById("notification").innerHTML = msg;
+                //const msg = await contract.methods.myMessage().call();
+                //document.getElementById("notification").innerHTML = msg;
             }   
             else{
                 alert("Wallet not connected. Please connect your wallet!");
