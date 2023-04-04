@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 </head>
 
-<body onload="">
+<body onload="setupFunc()">
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -17,31 +17,74 @@
 
 <div>
     <div class="sidetext">
-        <p id="pagetitle" style="font-size:25px"><strong>Data Requester Page</strong></p>
+        <p id="pagetitle" style="font-size:25px"><strong>Data Owner Page</strong></p><br><br>
+    </div>
+
+    <!-- Info section -->
+    <p style="font-size:20px"><i>General Info</i></p>
+    <hr class="solid">
+
+    <div class="sidetext">
+        <p>Your address:</p>
+        <p id="useraddress">0x112233445566778899aabbccddeeff</p>
     </div>
     
     <div class="sidetext">
-        <p id="notification">You have 0 new notification(s)!</p>
+        <p>You have</p>
+        <p id="notifications"><b>0</b></p>
+        <p> new notification(s)!</p>
+    </div>
+
+    <div class="sidetext">
+        <form>
+            <p>New Data Owner Address: </p>
+            <input type="text" id="addowner" name="addowner"><br><br>
+            <button onclick="">Add Data Owner</button>
+        </form>
+    </div>
+
+    <div class="buttons">
+        <p>Wallet still not connected?</p><br><br>
+        <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
     </div>
     
+    <!-- File Management -->
+    <p style="font-size:20px"><i>File Management</i></p>
+    <hr class="solid">
 
-<div class="ipfshash">
-    <p>IPFS File Hash: </p>
-    <label id="downloadhash"></label><br></br>
-    <button onclick="">Get Hash</button>
-</div>
-
-<div class="ipfshash">
-    <form>
+    <div class="ipfshash">
         <p>IPFS File Hash: </p>
-        <input type="text" id="uploadhash" name="uploadhash"><br><br>
-        <button onclick="">Upload Hash</button>
-    </form>
-</div>
+        <label id="downloadhash"></label><br><br>
+        <button onclick="">Get Hash</button>
+    </div>
 
-<div class="connectbutton">
-    <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
-    <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
+    <div class="ipfshash">
+        <form>
+            <p>IPFS File Hash: </p>
+            <input type="text" id="uploadhash" name="uploadhash"><br><br>
+            <button onclick="">Upload Hash</button>
+        </form>
+    </div>
+
+     <div class="buttons">
+        <input type="button" id="files" onClick="getFiles()" value="List Files">
+    </div>
+
+    <!-- Subscriber Management -->
+    <p style="font-size:20px"><i>Subscriber Management</i></p>
+    <hr class="solid">
+
+    <div class="buttons">
+        <input type="button" id="subscribers" onClick="getSubs()" value="List Subscribers">
+    </div>
+
+    <div class="sidetext">
+        <form>
+            <p>New Subscriber Address: </p>
+            <input type="text" id="addsub" name="addsub"><br><br>
+            <button onclick="">Add Subscriber</button>
+        </form>
+    </div>
 </div>
 
 <script>
@@ -55,5 +98,49 @@
             const walletAddress = await web3.eth.getAccounts();
             console.log("Wallet Address: %s", walletAddress[0]);
         }
+        else{
+            console.log("No web3 found...");
+        }
     }
+</script>
+
+<script>
+    import * as ref from "./reference.js";
+
+    const setupFunc = async() => {
+
+        //check if wallet is connected
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+                console.log("Wallet connected :)");
+                console.log("attempt 2");
+                //console.log(checkWallet);
+                //console.log(checkWallet[0]);
+
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(ref.abi, ref.address);
+                console.log(contract);
+
+                //get mmessage
+                //const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
+                const msg = await contract.methods.myMessage().call();
+                document.getElementById("notification").innerHTML = msg;
+            }   
+            else{
+                alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
 </script>
