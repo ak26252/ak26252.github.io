@@ -113,7 +113,17 @@
 <script>
     const abi = [
     {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
         "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
             {
                 "internalType": "address",
                 "name": "useraddr",
@@ -129,6 +139,11 @@
         "inputs": [
             {
                 "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
                 "name": "subaddr",
                 "type": "address"
             }
@@ -139,7 +154,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "getHash",
         "outputs": [
             {
@@ -170,31 +191,6 @@
     },
     {
         "inputs": [],
-        "name": "joinNetwork",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-            }
-        ],
-        "name": "uploadHash",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
         "name": "getOwner",
         "outputs": [
             {
@@ -207,7 +203,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "getSubscribers",
         "outputs": [
             {
@@ -220,7 +222,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "hasNotification",
         "outputs": [
             {
@@ -233,7 +241,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "isDataOwner",
         "outputs": [
             {
@@ -246,7 +260,13 @@
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "isUser",
         "outputs": [
             {
@@ -256,6 +276,19 @@
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "joinNetwork",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -283,8 +316,27 @@
         ],
         "stateMutability": "view",
         "type": "function"
-    }]
-    const contractaddr = "0xe7a98A252DC57106AA0ecd978a1256c021F44BBE";
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "hash",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "uploadHash",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
+    const contractaddr = "0x3B5983C8c9A9A2CDFb7292aB5D4869e39a593671";
 
     //onload setup function
     const setupFunc = async() => {
