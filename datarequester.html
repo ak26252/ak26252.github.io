@@ -17,7 +17,7 @@
 
 <div>
     <div class="sidetext">
-        <p id="pagetitle" style="font-size:25px"><strong>Data Requester Page</strong></p>
+        <p id="pagetitle" style="font-size:25px"><strong>Data Owner Page</strong></p>
     </div>
 
     <!-- Info section -->
@@ -33,14 +33,7 @@
         <p>You have</p>
         <p id="notifications"><b>0</b></p>
         <p> new notification(s)!</p>
-    </div>
-
-    <div class="sidetext">
-        <form>
-            <p>New Data Owner Address: </p>
-            <input type="text" id="addowner" name="addowner"><br><br>
-            <button onclick="">Add Data Owner</button>
-        </form>
+        <input type="button" id="refresh" onclick="getNotifications()" value="Manual Refresh">
     </div>
 
     <div class="buttons">
@@ -53,23 +46,23 @@
     <hr class="solid">
 
     <div class="ipfshash">
-        <p>IPFS File Hash: </p>
+        <p>IPFS Files List: </p>
         <label id="downloadhash"></label><br><br>
-        <button onclick="">Get Hash</button>
+        <button onclick="getIPFSHash()">List Files</button>
     </div>
 
     <div class="ipfshash">
         <form>
             <p>IPFS File Hash: </p>
             <input type="text" id="uploadhash" name="uploadhash"><br><br>
-            <button onclick="">Upload Hash</button>
+            <button onclick="uploadIPFSHash()">Upload File</button>
         </form>
     </div>
 
-    <div class="buttons">
+   <!--  <div class="buttons">
         <p>Files List:</p><br><br>
         <input type="button" id="files" onClick="getFiles()" value="Get Files">
-    </div>
+    </div> -->
 
     <!-- Subscriber Management -->
     <p style="font-size:20px"><i>Subscriber Management</i></p>
@@ -84,12 +77,16 @@
         <form>
             <p>New Subscriber Address: </p>
             <input type="text" id="addsub" name="addsub"><br><br>
-            <button onclick="">Add Subscriber</button>
+            <button onclick="addSubs()">Add Subscriber</button>
         </form>
+    </div>
+
+    <div class="buttons">
+        <input type="button" id="test" onClick="testFunc()" value="Test">
     </div>
 </div>
 
-<script type="module">
+<script>
     let web3;
     const connectWallet = async () => {
         if(window.ethereum){
@@ -106,9 +103,235 @@
     }
 </script>
 
-<script type="module">
-    import * as ref from "./reference.js";
+<script>
+    const abi = [
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "useraddr",
+                "type": "address"
+            }
+        ],
+        "name": "addDataOwner",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "subaddr",
+                "type": "address"
+            }
+        ],
+        "name": "addSubscriber",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "getHash",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "hash",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "dataowner",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct DSchain.File[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getOwner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "getSubscribers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "hasNotification",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "isDataOwner",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "isUser",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "joinNetwork",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "msgsender",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "txorigin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "hash",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "uploadHash",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
+    const contractaddr = "0x3B5983C8c9A9A2CDFb7292aB5D4869e39a593671";
 
+    //onload setup function
     const setupFunc = async() => {
 
         //check if wallet is connected
@@ -123,16 +346,30 @@
 
                 //load player address
                 const playerAddress = checkWallet[0];
-                // document.getElementById("owneraddress").innerHTML = playerAddress;
+                document.getElementById("useraddress").innerHTML = playerAddress;
 
                 //load contract
-                const contract = new web3.eth.Contract(ref.abi, ref.address);
+                const contract = new web3.eth.Contract(abi, contractaddr);
                 console.log(contract);
 
-                //get mmessage
-                //const hi = await ctc.methods.Hi("fuck").send({from: playerAddress});
-                const msg = await contract.methods.myMessage().call();
-                document.getElementById("notification").innerHTML = msg;
+                //check if in network
+                var network_status = await contract.methods.isUser(playerAddress).call();
+                console.log(network_status);
+                if(!network_status){
+                    alert("Not a user yet! Redirecting to home page.");
+                    location.href = "https://ak26252.github.io/index.html";
+                }
+
+                //get notifications
+                var notif_status = await contract.methods.hasNotification(playerAddress).call();
+                console.log(notif_status);
+                if(notif_status){
+                    document.getElementById("notification").innerHTML = "1";
+                }
+                else{
+                    document.getElementById("notification").innerHTML = "0";
+                }
+                
             }   
             else{
                 alert("Wallet not connected. Please connect your wallet!");
@@ -141,6 +378,209 @@
         }
         else{
             alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //check notifications
+    const getNotifications = async() => {
+        console.log("Checking for notifications...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //get notifications
+                var notif_status = await contract.methods.hasNotification(playerAddress).call();
+                //console.log(notif_status);
+                if(notif_status){
+                    console.log("New notification!");
+                    document.getElementById("notification").innerHTML = "1";
+                }
+                else{
+                    console.log("No new notification.");
+                    document.getElementById("notification").innerHTML = "0";
+                }
+                
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+    //setInterval(getNotficications, 5000);
+
+    //get ipfs hash
+    const getIPFSHash = async() => {
+        console.log("Getting IPFS hash");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //get file hashes
+                var file_hash = await contract.methods.getHash(playerAddress).call();
+                console.log(file_hash);
+                
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //upload ipfs hash
+    const uploadIPFSHash = async() => {
+        console.log("Uploading IPFS hash");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //upload file hash
+                var input_hash = document.getElementById("uploadhash").value;
+                var file_upload = await contract.methods.uploadHash(input_hash, playerAddress).send({from: playerAddress});
+                console.log(file_upload);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //add subscriber
+    const addSubs = async() => {
+        console.log("Adding subscriber");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new subscriber
+                var sub_addr = document.getElementById("addsub").value;
+                var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
+                console.log(new_sub);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //get subscribers
+    const getSubs = async() => {
+        console.log("Getting subscribers list...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //get subscribers list
+                var subs = await contract.methods.getSubscribers(playerAddress).call();
+                console.log(subs);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //test
+    const testFunc = async() => {
+        console.log("Testing...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new dataowner
+                var sender = await contract.methods.msgsender().call();
+                var origin = await contract.methods.txorigin().call();
+                console.log("msg.sender: ");
+                console.log(sender);
+                console.log("tx.origin: ");
+                console.log(origin);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
             console.log("Wallet NOT connected :(");
         }
     }
