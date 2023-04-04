@@ -368,6 +368,16 @@
                     location.href = "https://ak26252.github.io/index.html";
                 }
 
+                //check if owner
+                const isDO = await contract.methods.isDataOwner(playerAddress).call();
+                console.log(isDO);
+
+                //redirect to datarequester.html
+                if(!isDO){
+                    alert("You are not a DataOwner! Redirecting...");
+                    location.href = "https://ak26252.github.io/datarequester";
+                }
+
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 console.log(notif_status);
