@@ -6,11 +6,19 @@ div.ipfshash{
 /*    margin-left: 350px;*/
     margin-bottom: 50px;
 }
-div.connectbutton{
+div.joinnetwork{
+/*    margin-left: 350px;*/
+    margin-bottom: 50px;
+}
+div.buttons{
 /*    margin-left: 350px;*/
     margin-bottom: 50px;
 }
 p{
     display: inline;
     white-space: nowrap;
+}
+/* Solid border */
+hr.solid {
+  border-top: 3px solid #000;
 }

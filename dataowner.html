@@ -17,31 +17,68 @@
 
 <div>
     <div class="sidetext">
-        <p id="pagetitle" style="font-size:25px"><strong>Data Owner Page</strong></p>
+        <p id="pagetitle" style="font-size:25px"><strong>Data Owner Page</strong></p><br><br>
+    </div>
+
+    <!-- Info section -->
+    <p style="font-size:20px"><i>General Info</i></p>
+    <hr class="solid">
+
+    <div class="sidetext">
+        <p>Your address:</p>
+        <p id="useraddress">0x112233445566778899aabbccddeeff</p>
     </div>
     
     <div class="sidetext">
         <p id="notification">You have 0 new notification(s)!</p>
     </div>
-    
 
-<div class="ipfshash">
-    <p>IPFS File Hash: </p>
-    <label id="downloadhash"></label><br></br>
-    <button onclick="">Get Hash</button>
-</div>
-
-<div class="ipfshash">
     <form>
-        <p>IPFS File Hash: </p>
-        <input type="text" id="uploadhash" name="uploadhash"><br><br>
-        <button onclick="">Upload Hash</button>
+        <p>New Data Owner Address: </p>
+        <input type="text" id="addowner" name="addowner"><br><br>
+        <button onclick="">Add Data Owner</button>
     </form>
-</div>
 
-<div class="connectbutton">
-    <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
-    <!-- <input type="button" id="sell" onclick="sellToken()" value="Sell Token"> -->
+    <div class="buttons">
+        <p>Wallet still not connected?</p>
+        <input type="button" id="connect" onClick="connectWallet()" value="Connect Wallet">
+    </div>
+    
+    <!-- File Management -->
+    <p style="font-size:20px"><i>File Management</i></p>
+    <hr class="solid">
+
+    <div class="ipfshash">
+        <p>IPFS File Hash: </p>
+        <label id="downloadhash"></label><br></br>
+        <button onclick="">Get Hash</button>
+    </div>
+
+    <div class="ipfshash">
+        <form>
+            <p>IPFS File Hash: </p>
+            <input type="text" id="uploadhash" name="uploadhash"><br><br>
+            <button onclick="">Upload Hash</button>
+        </form>
+    </div>
+
+     <div class="buttons">
+        <input type="button" id="files" onClick="getFiles()" value="List Files">
+    </div>
+
+    <!-- Subscriber Management -->
+    <p style="font-size:20px"><i>Subscriber Management</i></p>
+    <hr class="solid">
+
+    <div class="buttons">
+        <input type="button" id="subscribers" onClick="getSubs()" value="List Subscribers">
+    </div>
+
+    <form>
+        <p>New Subscriber Address: </p>
+        <input type="text" id="addsub" name="addsub"><br><br>
+        <button onclick="">Add Subscriber</button>
+    </form>
 </div>
 
 <script>
