@@ -87,6 +87,10 @@
             <button onclick="addSubs()">Add Subscriber</button>
         </form>
     </div>
+
+    <div class="buttons">
+        <input type="button" id="test" onClick="testFunc()" value="Test">>
+    </div>
 </div>
 
 <script>
@@ -279,9 +283,8 @@
         ],
         "stateMutability": "view",
         "type": "function"
-    }
-    ]
-    const contractaddr = "";
+    }]
+    const contractaddr = "0xe7a98A252DC57106AA0ecd978a1256c021F44BBE";
 
     //onload setup function
     const setupFunc = async() => {
@@ -522,6 +525,41 @@
                 var input_do = document.getElementById("addowner").value;
                 var new_do = await contract.methods.addDataOwner(input_do).send({from: playerAddress});
                 console.log(new_do);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //test
+    const testFunc = async() => {
+        console.log("Testing...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new dataowner
+                var sender = await contract.methods.msgsender().call();
+                var origin = await contract.methods.txorigin().call();
+                console.log("msg.sender: ");
+                console.log(sender);
+                console.log("tx.origin: ");
+                console.log(origin);
             }   
             else{
                 //alert("Wallet not connected. Please connect your wallet!");
