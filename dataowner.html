@@ -91,7 +91,7 @@
 
 <script type="module">
     let web3;
-    const connectWallet = async () => {
+    const window.connectWallet = async () => {
         if(window.ethereum){
             await window.ethereum.request({method: "eth_requestAccounts"});
             web3 = new Web3(window.ethereum);
@@ -109,7 +109,7 @@
 <script type="module">
     import * as ref from "./reference.js";
 
-    const setupFunc = async() => {
+    const window.setupFunc = async() => {
 
         //check if wallet is connected
         if(window.ethereum){
