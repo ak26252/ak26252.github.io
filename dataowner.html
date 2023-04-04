@@ -558,7 +558,8 @@
 
                 var subs_array = "";
                 for(var i = 0; i < subs.length; i++){
-                    array += i + ".) " + subs[i] + "\n";
+                    var num = i+1;
+                    subs_array += num + ".) " + subs[i] + "\n";
                 }
                 document.getElementById("subslist").innerHTML = subs_array;
             }   
