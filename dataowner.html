@@ -523,6 +523,7 @@
 
                 //add new subscriber
                 var sub_addr = document.getElementById("addsub").value;
+                console.log(sub_addr);
                 var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
                 console.log(new_sub);
             }   
