@@ -89,7 +89,7 @@
     </div>
 
     <div class="buttons">
-        <input type="button" id="test" onClick="testFunc()" value="Test">>
+        <input type="button" id="test" onClick="testFunc()" value="Test">
     </div>
 </div>
 
@@ -360,7 +360,7 @@
                 console.log(contract);
 
                 //check if in network
-                var network_status = await contract.methods.isUser().call();
+                var network_status = await contract.methods.isUser(playerAddress).call();
                 console.log(network_status);
                 if(!network_status){
                     alert("Not a user yet! Redirecting to home page.");
@@ -368,7 +368,7 @@
                 }
 
                 //get notifications
-                var notif_status = await contract.methods.hasNotification().call();
+                var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 console.log(notif_status);
                 if(notif_status){
                     document.getElementById("notification").innerHTML = "1";
@@ -406,7 +406,7 @@
                 //console.log(contract);
 
                 //get notifications
-                var notif_status = await contract.methods.hasNotification().call();
+                var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 //console.log(notif_status);
                 if(notif_status){
                     console.log("New notification!");
@@ -428,7 +428,7 @@
             console.log("Wallet NOT connected :(");
         }
     }
-    //setInterval(getNotficications, 5000);
+    setInterval(getNotficications, 5000);
 
     //get ipfs hash
     const getIPFSHash = async() => {
@@ -447,7 +447,7 @@
                 //console.log(contract);
 
                 //get file hashes
-                var file_hash = await contract.methods.getHash().call();
+                var file_hash = await contract.methods.getHash(playerAddress).call();
                 console.log(file_hash);
                 
             }   
@@ -480,7 +480,7 @@
 
                 //upload file hash
                 var input_hash = document.getElementById("uploadhash").value;
-                var file_upload = await contract.methods.uploadHash(input_hash).send({from: playerAddress});
+                var file_upload = await contract.methods.uploadHash(input_hash, playerAddress).send({from: playerAddress});
                 console.log(file_upload);
             }   
             else{
@@ -512,7 +512,7 @@
 
                 //add new subscriber
                 var sub_addr = document.getElementById("addsub").value;
-                var new_sub = await contract.methods.addSubscriber(sub_addr).send({from: playerAddress});
+                var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
                 console.log(new_sub);
             }   
             else{
@@ -543,7 +543,7 @@
                 //console.log(contract);
 
                 //get subscribers list
-                var subs = await contract.methods.getSubscribers().call();
+                var subs = await contract.methods.getSubscribers(playerAddress).call();
                 console.log(subs);
             }   
             else{
@@ -575,7 +575,7 @@
 
                 //add new dataowner
                 var input_do = document.getElementById("addowner").value;
-                var new_do = await contract.methods.addDataOwner(input_do).send({from: playerAddress});
+                var new_do = await contract.methods.addDataOwner(playerAddress, input_do).send({from: playerAddress});
                 console.log(new_do);
             }   
             else{
