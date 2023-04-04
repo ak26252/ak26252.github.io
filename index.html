@@ -347,7 +347,7 @@
                 console.log(contract);
 
                 //join network
-                const join = await contract.methods.joinNetwork(playerAddress).call();
+                const join = await contract.methods.joinNetwork(playerAddress).send({from: playerAddress});
 
                 alert("You have joined the network. Reload the page to get redirected to the correct page.");
             }
