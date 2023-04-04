@@ -33,6 +33,7 @@
         <p>You have</p>
         <p id="notifications"><b>0</b></p>
         <p> new notification(s)!</p>
+        <input type="button" id="refresh" onclick="getNotifications()" value="Manual Refresh">
     </div>
 
     <div class="sidetext">
@@ -428,7 +429,7 @@
             console.log("Wallet NOT connected :(");
         }
     }
-    setInterval(getNotficications, 5000);
+    //setInterval(getNotficications, 5000);
 
     //get ipfs hash
     const getIPFSHash = async() => {
