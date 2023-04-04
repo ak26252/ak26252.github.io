@@ -304,7 +304,7 @@
                 	console.log("User in network :)");
 
                 	//check if dataowner or not
-                	const isDO = await contract.methods.isDataOwner().call();
+                	const isDO = await contract.methods.isDataOwner(playerAddress).call();
 
                 	//redirect to dataowner.html
                 	if(iSDO){
