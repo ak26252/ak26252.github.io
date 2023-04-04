@@ -74,6 +74,7 @@
 
     <div class="buttons">
         <p>Subsribers List:</p><br><br>
+        <p id="subslist"></p> 
         <input type="button" id="subscribers" onClick="getSubs()" value="Get Subs">
     </div>
 
@@ -81,6 +82,7 @@
         <p>New Subscriber Address: </p>
         <input type="text" id="addsub" name="addsub"><br><br>
         <button onclick="addSubs()">Add Subscriber</button>
+        <p id="addsubstatus"></p>
     </div>
 
     <div class="buttons">
@@ -518,7 +520,9 @@
                 //add new subscriber
                 var sub_addr = document.getElementById("addsub").value;
                 console.log(sub_addr);
+                document.getElementById("addsubstatus").innerHTML = "Adding...";
                 var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
+                document.getElementById("addsubstatus").innerHTML = "Success!";
                 console.log(new_sub);
             }   
             else{
@@ -551,6 +555,12 @@
                 //get subscribers list
                 var subs = await contract.methods.getSubscribers(playerAddress).call();
                 console.log(subs);
+
+                var subs_array = "";
+                for(var i = 0; i < subs.length; i++){
+                    array += i + ".) " + subs[i] + "\n";
+                }
+                document.getElementById("subslist").innerHTML = subs_array;
             }   
             else{
                 //alert("Wallet not connected. Please connect your wallet!");
