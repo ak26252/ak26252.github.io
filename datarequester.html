@@ -56,6 +56,7 @@
         <p>IPFS File Hash: </p>
         <input type="text" id="uploadhash" name="uploadhash"><br><br>
         <button onclick="uploadIPFSHash()">Upload File</button>
+        <p id="uploadstatus"></p>
     </div>
 
    <!--  <div class="buttons">
@@ -526,10 +527,11 @@
                 const contract = new web3.eth.Contract(abi, contractaddr);
                 //console.log(contract);
 
-                //upload file hash
                 var input_hash = document.getElementById("uploadhash").value;
+                document.getElementById("uploadstatus").innerHTML = "Uploading...";
                 var file_upload = await contract.methods.uploadHash(input_hash, playerAddress).send({from: playerAddress});
                 console.log(file_upload);
+                document.getElementById("uploadstatus").innerHTML = "Upload Success!";
             }   
             else{
                 //alert("Wallet not connected. Please connect your wallet!");
@@ -576,6 +578,7 @@
             console.log("Wallet NOT connected :(");
         }
     }
+
     //add subscriber
     const removeSubs = async() => {
         console.log("Removing subscriber");
