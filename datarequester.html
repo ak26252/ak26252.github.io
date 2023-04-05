@@ -372,7 +372,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 2");
+                console.log("attempt 3");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
@@ -386,7 +386,7 @@
 
                 //check if in network
                 var network_status = await contract.methods.isUser(playerAddress).call();
-                console.log(network_status);
+                //console.log(network_status);
                 if(!network_status){
                     alert("Not a user yet! Redirecting to home page.");
                     location.href = "https://ak26252.github.io/index.html";
@@ -394,7 +394,7 @@
 
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
-                console.log(notif_status);
+                //console.log(notif_status);
                 if(notif_status){
                     document.getElementById("notification").innerHTML = "1";
                 }
