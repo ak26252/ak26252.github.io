@@ -68,13 +68,15 @@
 
     <div class="buttons">
         <p>Subsribers List:</p><br><br>
-        <input type="button" id="subscribers" onClick="getSubs()" value="Get Subs">
+        <input type="button" id="subscribers" onClick="getSubs()" value="Get Subs"><br><br>
+        <p id="subslist"></p> 
     </div>
 
     <div class="sidetext">
         <p>New Subscriber Address: </p>
         <input type="text" id="addsub" name="addsub"><br><br>
         <button onclick="addSubs()">Add Subscriber</button>
+        <p id="addsubstatus"></p>
     </div>
 
     <div class="buttons">
@@ -356,6 +358,16 @@
                     location.href = "https://ak26252.github.io/index.html";
                 }
 
+                //check if owner
+                const isDO = await contract.methods.isDataOwner(playerAddress).call();
+                console.log(isDO);
+
+                //redirect to datarequester.html
+                if(!isDO){
+                    alert("You are not a DataOwner! Redirecting...");
+                    location.href = "https://ak26252.github.io/datarequester";
+                }
+
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 console.log(notif_status);
@@ -501,7 +513,10 @@
 
                 //add new subscriber
                 var sub_addr = document.getElementById("addsub").value;
+                console.log(sub_addr);
+                document.getElementById("addsubstatus").innerHTML = "Adding...";
                 var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
+                document.getElementById("addsubstatus").innerHTML = "Success!";
                 console.log(new_sub);
             }   
             else{
@@ -534,6 +549,13 @@
                 //get subscribers list
                 var subs = await contract.methods.getSubscribers(playerAddress).call();
                 console.log(subs);
+
+                var subs_array = "";
+                for(var i = 0; i < subs.length; i++){
+                    var num = i+1;
+                    subs_array += num + ".) " + subs[i] + "\n";
+                }
+                document.getElementById("subslist").innerHTML = subs_array;
             }   
             else{
                 //alert("Wallet not connected. Please connect your wallet!");
