@@ -477,7 +477,7 @@
                 console.log(file_hash);
 
                 //print files
-                var hash_array = "\n";
+                var hash_array = "";
                 for(var i = 0; i < file_hash.length; i++){
                     var hash = "";
                     var date_str = "";
@@ -494,9 +494,8 @@
                             owner = file_hash[i][j];
                         }
                     }
-                    hash_array += i+1 + ".) " + "\t\tHash: " + hash + "\t\tData Owner: " + owner + "\t\tTimestamp: " + date_str + "\n\n";
+                    hash_array += i+1 + ".) " + "&emsp;"+ "Hash: " + hash + "&emsp;" + "Data Owner: " + owner + "&emsp;" + "Timestamp: " + date_str + "<br />";
                 }
-
                 document.getElementById("hashlist").innerHTML = hash_array;
                 
             }   
