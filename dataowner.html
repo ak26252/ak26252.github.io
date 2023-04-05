@@ -55,6 +55,7 @@
         <p>IPFS Files List: </p>
         <label id="downloadhash"></label><br><br>
         <button onclick="getIPFSHash()">List Files</button>
+        <p id="hashlist"></p>
     </div>
 
     <div class="ipfshash">
@@ -377,7 +378,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 2");
+                console.log("attempt 3");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
