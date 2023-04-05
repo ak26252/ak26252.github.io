@@ -439,7 +439,7 @@
                 //console.log(contract);
 
                 //get file hashes
-                var file_hash = await contract.methods.getHash(playerAddress).call();
+                var file_hash = await contract.methods.getHash(playerAddress).send({from: playerAddress});
                 console.log(file_hash);
 
                 //print files
@@ -460,7 +460,7 @@
                             owner = file_hash[i][j];
                         }
                     }
-                    hash_array += i+1 + "\tHash: " + hash + "\tData Owner: " + owner + "\tTimestamp: " + date_str + "\n";
+                    hash_array += i+1 + ".) " + "\t\tHash: " + hash + "\t\tData Owner: " + owner + "\t\tTimestamp: " + date_str + "\n\n";
                 }
 
                 document.getElementById("hashlist").innerHTML = hash_array;
