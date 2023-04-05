@@ -48,11 +48,6 @@
 	//import * as ref from "./reference.js";
 	const abi = [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -96,6 +91,73 @@
 				"type": "address"
 			}
 		],
+		"name": "clearNotification",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
+		"name": "joinNetwork",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "subaddr",
+				"type": "address"
+			}
+		],
+		"name": "removeSubscriber",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "hash",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
+		"name": "uploadHash",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
 		"name": "getHash",
 		"outputs": [
 			{
@@ -121,7 +183,7 @@
 				"type": "tuple[]"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -214,19 +276,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "inputaddr",
-				"type": "address"
-			}
-		],
-		"name": "joinNetwork",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "msgsender",
 		"outputs": [
@@ -251,28 +300,10 @@
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "hash",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "inputaddr",
-				"type": "address"
-			}
-		],
-		"name": "uploadHash",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	}
 ]
 
-	const address = "0x3B5983C8c9A9A2CDFb7292aB5D4869e39a593671";
+	const address = "0x52455bA673c97f95068D0cB2D1c0e8751bC3cDA2";
 
 	const checkFunc = async() => {
 		if(window.ethereum){
