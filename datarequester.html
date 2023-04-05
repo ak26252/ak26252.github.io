@@ -74,9 +74,10 @@
     </div>
 
     <div class="sidetext">
-        <p>New Subscriber Address: </p>
+        <p>User Address: </p>
         <input type="text" id="addsub" name="addsub"><br><br>
         <button onclick="addSubs()">Add Subscriber</button>
+        <button onclick="removeSubs()">Remove Subscriber</button>
         <p id="addsubstatus"></p>
     </div>
 
@@ -562,6 +563,40 @@
                 console.log(sub_addr);
                 document.getElementById("addsubstatus").innerHTML = "Adding...";
                 var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
+                document.getElementById("addsubstatus").innerHTML = "Success!";
+                console.log(new_sub);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+    //add subscriber
+    const removeSubs = async() => {
+        console.log("Removing subscriber");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new subscriber
+                var sub_addr = document.getElementById("addsub").value;
+                console.log(sub_addr);
+                document.getElementById("addsubstatus").innerHTML = "Adding...";
+                var new_sub = await contract.methods.removeSubscriber(playerAddress, sub_addr).send({from: playerAddress});
                 document.getElementById("addsubstatus").innerHTML = "Success!";
                 console.log(new_sub);
             }   
