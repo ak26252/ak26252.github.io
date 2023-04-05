@@ -48,7 +48,7 @@
     <div class="ipfshash">
         <p>IPFS Files List: </p>
         <label id="downloadhash"></label><br><br>
-        <button onclick="getIPFSHash()">List Files</button>
+        <button onclick="getIPFSHash()">List Files</button><br />
         <p id="hashlist"></p>
     </div>
 
@@ -372,7 +372,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 4");
+                console.log("attempt 5");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
@@ -489,7 +489,7 @@
                         }
                         else if(j==1){
                             var date = new Date(file_hash[i][j]*1000);
-                            date_str = date.toString();
+                            date_str = date.toLocaleString();
                         }
                         else{
                             owner = file_hash[i][j];
