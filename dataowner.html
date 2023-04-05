@@ -398,7 +398,7 @@
         }
     }
 
-    //check notifications
+        //check notifications
     const getNotifications = async() => {
         console.log("Checking for notifications...");
         if(window.ethereum){
@@ -416,13 +416,13 @@
 
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
-                //console.log(notif_status);
+                console.log(notif_status);
                 if(notif_status){
-                    console.log("New notification!");
+                    //console.log("New notification!");
                     document.getElementById("notification").innerHTML = "1";
                 }
                 else{
-                    console.log("No new notification.");
+                    //console.log("No new notification.");
                     document.getElementById("notification").innerHTML = "0";
                 }
                 
@@ -437,7 +437,7 @@
             console.log("Wallet NOT connected :(");
         }
     }
-    //setInterval(getNotficications, 5000);
+    setInterval(getNotficications, 5000);
 
     //get ipfs hash
     const getIPFSHash = async() => {
@@ -457,7 +457,31 @@
 
                 //get file hashes
                 var file_hash = await contract.methods.getHash(playerAddress).call();
+                var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
                 console.log(file_hash);
+
+                //print files
+                var hash_array = "<br />";
+                var tab = "&emsp;" + "|" + "&emsp;";
+                for(var i = 0; i < file_hash.length; i++){
+                    var hash = "";
+                    var date_str = "";
+                    var owner = "";
+                    for(var j = 0; j < 3; j++){
+                        if(j==0){
+                            hash = file_hash[i][j];
+                        }
+                        else if(j==1){
+                            var date = new Date(file_hash[i][j]*1000);
+                            date_str = date.toLocaleString();
+                        }
+                        else{
+                            owner = file_hash[i][j];
+                        }
+                    }
+                    hash_array += i+1 + ".) "+ "Hash: " + hash + tab + "Data Owner: " + owner + tab + "Timestamp: " + date_str + "<br />";
+                }
+                document.getElementById("hashlist").innerHTML = hash_array;
                 
             }   
             else{
@@ -487,7 +511,6 @@
                 const contract = new web3.eth.Contract(abi, contractaddr);
                 //console.log(contract);
 
-                //upload file hash
                 var input_hash = document.getElementById("uploadhash").value;
                 document.getElementById("uploadstatus").innerHTML = "Uploading...";
                 var file_upload = await contract.methods.uploadHash(input_hash, playerAddress).send({from: playerAddress});
@@ -526,6 +549,41 @@
                 console.log(sub_addr);
                 document.getElementById("addsubstatus").innerHTML = "Adding...";
                 var new_sub = await contract.methods.addSubscriber(playerAddress, sub_addr).send({from: playerAddress});
+                document.getElementById("addsubstatus").innerHTML = "Success!";
+                console.log(new_sub);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //add subscriber
+    const removeSubs = async() => {
+        console.log("Removing subscriber");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new subscriber
+                var sub_addr = document.getElementById("addsub").value;
+                console.log(sub_addr);
+                document.getElementById("addsubstatus").innerHTML = "Removing...";
+                var new_sub = await contract.methods.removeSubscriber(playerAddress, sub_addr).send({from: playerAddress});
                 document.getElementById("addsubstatus").innerHTML = "Success!";
                 console.log(new_sub);
             }   
@@ -598,41 +656,6 @@
                 var input_do = document.getElementById("addowner").value;
                 var new_do = await contract.methods.addDataOwner(playerAddress, input_do).send({from: playerAddress});
                 console.log(new_do);
-            }   
-            else{
-                //alert("Wallet not connected. Please connect your wallet!");
-                console.log("Wallet NOT connected :(");
-            }
-        }
-        else{
-            //alert("Wallet not connected. Please connect your wallet!");
-            console.log("Wallet NOT connected :(");
-        }
-    }
-
-    //add subscriber
-    const removeSubs = async() => {
-        console.log("Removing subscriber");
-        if(window.ethereum){
-            web3 = new Web3(window.ethereum);
-            const checkWallet = await web3.eth.getAccounts();
-            if(checkWallet.length > 0){
-        
-                //load player address
-                const playerAddress = checkWallet[0];
-                // document.getElementById("owneraddress").innerHTML = playerAddress;
-
-                //load contract
-                const contract = new web3.eth.Contract(abi, contractaddr);
-                //console.log(contract);
-
-                //add new subscriber
-                var sub_addr = document.getElementById("addsub").value;
-                console.log(sub_addr);
-                document.getElementById("addsubstatus").innerHTML = "Adding...";
-                var new_sub = await contract.methods.removeSubscriber(playerAddress, sub_addr).send({from: playerAddress});
-                document.getElementById("addsubstatus").innerHTML = "Success!";
-                console.log(new_sub);
             }   
             else{
                 //alert("Wallet not connected. Please connect your wallet!");

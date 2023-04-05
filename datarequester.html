@@ -434,11 +434,11 @@
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 console.log(notif_status);
                 if(notif_status){
-                    console.log("New notification!");
+                    //console.log("New notification!");
                     document.getElementById("notification").innerHTML = "1";
                 }
                 else{
-                    console.log("No new notification.");
+                    //console.log("No new notification.");
                     document.getElementById("notification").innerHTML = "0";
                 }
                 
@@ -453,7 +453,7 @@
             console.log("Wallet NOT connected :(");
         }
     }
-    //setInterval(getNotficications, 5000);
+    setInterval(getNotficications, 5000);
 
     //get ipfs hash
     const getIPFSHash = async() => {
@@ -598,7 +598,7 @@
                 //add new subscriber
                 var sub_addr = document.getElementById("addsub").value;
                 console.log(sub_addr);
-                document.getElementById("addsubstatus").innerHTML = "Adding...";
+                document.getElementById("addsubstatus").innerHTML = "Removing...";
                 var new_sub = await contract.methods.removeSubscriber(playerAddress, sub_addr).send({from: playerAddress});
                 document.getElementById("addsubstatus").innerHTML = "Success!";
                 console.log(new_sub);
