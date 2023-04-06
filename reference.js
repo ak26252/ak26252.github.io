@@ -1,4 +1,4 @@
-export const abi = [
+const abi = [
 	{
 		"inputs": [
 			{
@@ -173,4 +173,4 @@ export const abi = [
 	}
 ]
 
-export const address = "";
+const address = "";

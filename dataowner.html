@@ -367,7 +367,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x52455bA673c97f95068D0cB2D1c0e8751bC3cDA2";
+    const contractaddr = "0x0cC97D70A3DB9241a3E4d52f51b818A97C8b01E6";
 
     //onload setup function
     const setupFunc = async() => {
@@ -388,11 +388,11 @@
 
                 //load contract
                 const contract = new web3.eth.Contract(abi, contractaddr);
-                console.log(contract);
+                //console.log(contract);
 
                 //check if in network
                 var network_status = await contract.methods.isUser(playerAddress).call();
-                console.log(network_status);
+                //console.log(network_status);
                 if(!network_status){
                     alert("Not a user yet! Redirecting to home page.");
                     location.href = "https://ak26252.github.io/index.html";
@@ -400,7 +400,7 @@
 
                 //check if owner
                 const isDO = await contract.methods.isDataOwner(playerAddress).call();
-                console.log(isDO);
+                //console.log(isDO);
 
                 //redirect to datarequester.html
                 if(!isDO){
