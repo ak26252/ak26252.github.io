@@ -34,6 +34,8 @@
         <p id="notification"><b>0</b></p>
         <p> new notification(s)!</p>
         <input type="button" id="refresh" onclick="getNotifications()" value="Manual Refresh">
+        <input type="button" id="getNotificationContents" onclick="getNotificationContents()" value="Get Notifications">
+        <p id="notification_list"></p>
     </div>
 
     <div class="buttons">
@@ -227,6 +229,25 @@
                 "internalType": "struct DSchain.File[]",
                 "name": "",
                 "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "getNotification",
+        "outputs": [
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
             }
         ],
         "stateMutability": "view",
@@ -466,7 +487,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x01C9ac5C1d87BaFB421aEf09b70F67974739C6C7";
+    const contractaddr = "0x760bA2A2bD60FBDd6f60D4818Cc7eACc7d445272";
 
     //onload setup function
     const setupFunc = async() => {
@@ -559,6 +580,44 @@
         }
     }
     //setInterval(getNotifications, 10000);
+
+    //get notification contents
+    const getNotificationContents = async() => {
+        console.log("Retrieving notifications...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //get notifications
+                var notifications = await contract.methods.getNotfication(playerAddress).call();
+
+                var notifications_array = "";
+                for(var i = 0; i < notifications.length; i++){
+                    var num = i+1;
+                    notifications_array += num + ".) " + notifications[i] + "\n";
+                }
+                document.getElementById("notification_list").innerHTML = notifications_array;
+                
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
 
     //get ipfs hash
     const getIPFSHash = async() => {
