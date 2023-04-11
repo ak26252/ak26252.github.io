@@ -493,7 +493,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x11Dab049efB47305338f7cC30C35Da797c157023";
+    const contractaddr = "0xCc5Ef6EcC6f51bcA33496F4C5146d1771797684C";
 
     //onload setup function
     const setupFunc = async() => {
@@ -614,7 +614,7 @@
                 //console.log(contract);
 
                 //get notifications
-                var notifications = await contract.methods.getNotfication(playerAddress).call();
+                var notifications = await contract.methods.getNotification(playerAddress).call();
 
                 var notifications_array = "";
                 for(var i = 0; i < notifications.length; i++){
