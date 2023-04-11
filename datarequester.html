@@ -873,7 +873,7 @@
                 var pub_addr = document.getElementById("addpub").value;
                 console.log(pub_addr);
                 document.getElementById("addpubstatus").innerHTML = "Removing...";
-                var new_pub = await contract.methods.removePublisher(playerAddress, pub_addr).send({from: playerAddress});
+                var new_pub = await contract.methods.removepublisher(playerAddress, pub_addr).send({from: playerAddress});
                 document.getElementById("addpubstatus").innerHTML = "Success!";
                 console.log(new_pub);
             }   
