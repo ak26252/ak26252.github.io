@@ -321,9 +321,9 @@
         "name": "hasNotification",
         "outputs": [
             {
-                "internalType": "bool",
+                "internalType": "uint256",
                 "name": "",
-                "type": "bool"
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -493,7 +493,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0xCc5Ef6EcC6f51bcA33496F4C5146d1771797684C";
+    const contractaddr = "0x91E9184DAb533B152c1943d2A196f9D3aA641177";
 
     //onload setup function
     const setupFunc = async() => {
@@ -504,7 +504,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 4");
+                console.log("attempt 6");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
@@ -575,9 +575,9 @@
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 //console.log(notif_status);
-                if(notif_status){
+                if(notif_status > 0){
                     //console.log("New notification!");
-                    document.getElementById("notification").innerHTML = "1";
+                    document.getElementById("notification").innerHTML = notif_status;
                 }
                 else{
                     //console.log("No new notification.");

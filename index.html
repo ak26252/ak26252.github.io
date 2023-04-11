@@ -236,9 +236,9 @@
 		"name": "hasNotification",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -409,7 +409,7 @@
 	}
 ]
 
-	const address = "0xCc5Ef6EcC6f51bcA33496F4C5146d1771797684C";
+	const address = "0x91E9184DAb533B152c1943d2A196f9D3aA641177";
 
 	const checkFunc = async() => {
 		if(window.ethereum){
@@ -417,7 +417,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                //console.log("attempt 2");
+                console.log("attempt 6");
 
                 //load player address
                 const playerAddress = checkWallet[0];
