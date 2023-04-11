@@ -618,7 +618,7 @@
                 //get notifications
                 var notifications = await contract.methods.getNotification(playerAddress).call();
 
-                var notifications_array = "<br />";
+                var notifications_array = "";
                 for(var i = 0; i < notifications.length; i++){
                     var num = i+1;
                     notifications_array += num + ".) " + notifications[i] + "<br />";
