@@ -847,7 +847,7 @@
                 //console.log(contract);
 
                 //get publishers list
-                var pubs = await contract.methods.getPublisher(playerAddress).call();
+                var pubs = await contract.methods.getPublishers(playerAddress).call();
                 console.log(pubs);
 
                 var pubs_array = "";
