@@ -576,7 +576,7 @@
 
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
-                //console.log(notif_status);
+                console.log(notif_status);
                 if(notif_status > 0){
                     //console.log("New notification!");
                     document.getElementById("notification").innerHTML = notif_status;
@@ -621,7 +621,7 @@
                 var notifications_array = "<br />";
                 for(var i = 0; i < notifications.length; i++){
                     var num = i+1;
-                    notifications_array += num + ".) " + notifications[i] + "\n";
+                    notifications_array += num + ".) " + notifications[i] + "<br />";
                 }
                 document.getElementById("notification_list").innerHTML = notifications_array;
                 
