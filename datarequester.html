@@ -520,7 +520,7 @@
 
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
-                //console.log(notif_status);
+                console.log(notif_status);
                 if(notif_status > 0){
                     //console.log("New notification!");
                     document.getElementById("notification").innerHTML = notif_status;
