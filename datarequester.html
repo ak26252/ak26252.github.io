@@ -557,7 +557,7 @@
                 //console.log(contract);
 
                 //get notifications
-                var notif_status = await contract.methods.hasNotification(playerAddress).call();
+                var notif_status = await contract.methods.getNotification(playerAddress).call();
                 //console.log(notif_status);
                 if(notif_status){
                     //console.log("New notification!");
