@@ -498,7 +498,7 @@
             const checkWallet = await web3.eth.getAccounts();
             if(checkWallet.length > 0){
                 console.log("Wallet connected :)");
-                console.log("attempt 6");
+                console.log("attempt 7");
                 //console.log(checkWallet);
                 //console.log(checkWallet[0]);
 
@@ -521,10 +521,12 @@
                 //get notifications
                 var notif_status = await contract.methods.hasNotification(playerAddress).call();
                 //console.log(notif_status);
-                if(notif_status){
-                    document.getElementById("notification").innerHTML = "1";
+                if(notif_status > 0){
+                    //console.log("New notification!");
+                    document.getElementById("notification").innerHTML = notif_status;
                 }
                 else{
+                    //console.log("No new notification.");
                     document.getElementById("notification").innerHTML = "0";
                 }
                 
