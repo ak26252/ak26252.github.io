@@ -114,6 +114,19 @@
 				"type": "address"
 			}
 		],
+		"name": "clearNotification",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
 		"name": "getHash",
 		"outputs": [
 			{
@@ -139,7 +152,7 @@
 				"type": "tuple[]"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -377,7 +390,7 @@
 	}
 ]
 
-	const address = "0x36768c4b0F405aA8cDeAaA0c7834112a9D13921a";
+	const address = "0x01C9ac5C1d87BaFB421aEf09b70F67974739C6C7";
 
 	const checkFunc = async() => {
 		if(window.ethereum){

@@ -191,6 +191,19 @@
                 "type": "address"
             }
         ],
+        "name": "clearNotification",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
         "name": "getHash",
         "outputs": [
             {
@@ -216,7 +229,7 @@
                 "type": "tuple[]"
             }
         ],
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -453,7 +466,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x36768c4b0F405aA8cDeAaA0c7834112a9D13921a";
+    const contractaddr = "0x01C9ac5C1d87BaFB421aEf09b70F67974739C6C7";
 
     //onload setup function
     const setupFunc = async() => {
@@ -564,8 +577,8 @@
                 //console.log(contract);
 
                 //get file hashes
-                var file_hash = await contract.methods.getHash(playerAddress).send({from: playerAddress});
-                //var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
+                var file_hash = await contract.methods.getHash(playerAddress).call();
+                var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
                 console.log(file_hash);
 
                 //print files
