@@ -156,6 +156,25 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
+		"name": "getNotification",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "getOwner",
 		"outputs": [
@@ -390,7 +409,7 @@
 	}
 ]
 
-	const address = "0x01C9ac5C1d87BaFB421aEf09b70F67974739C6C7";
+	const address = "0x11Dab049efB47305338f7cC30C35Da797c157023";
 
 	const checkFunc = async() => {
 		if(window.ethereum){

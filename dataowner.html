@@ -133,6 +133,11 @@
 <script>
     const abi = [
     {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -196,110 +201,6 @@
         ],
         "name": "clearNotification",
         "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            }
-        ],
-        "name": "joinNetwork",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "msgsender",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "pubaddr",
-                "type": "address"
-            }
-        ],
-        "name": "removepublisher",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "subaddr",
-                "type": "address"
-            }
-        ],
-        "name": "removeSubscriber",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "txorigin",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            }
-        ],
-        "name": "uploadHash",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -467,6 +368,26 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "joinNetwork",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "msgsender",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "msgsenderpure",
         "outputs": [
@@ -477,6 +398,61 @@
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "subaddr",
+                "type": "address"
+            }
+        ],
+        "name": "removeSubscriber",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "pubaddr",
+                "type": "address"
+            }
+        ],
+        "name": "removepublisher",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "txorigin",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -491,9 +467,33 @@
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "hash",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "uploadHash",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
 ]
-    const contractaddr = "0x760bA2A2bD60FBDd6f60D4818Cc7eACc7d445272";
+    const contractaddr = "0x11Dab049efB47305338f7cC30C35Da797c157023";
 
     //onload setup function
     const setupFunc = async() => {
