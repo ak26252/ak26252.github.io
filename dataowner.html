@@ -88,6 +88,24 @@
         <p id="addsubstatus"></p>
     </div>
 
+    <!-- Publisher Management -->
+    <p style="font-size:20px"><i>Publisher Management</i></p>
+    <hr class="solid">
+
+    <div class="buttons">
+        <p>Subsribers List:</p><br><br>
+        <input type="button" id="publishers" onClick="getPubs()" value="Get Pubs"><br><br>
+        <p id="pubslist"></p> 
+    </div>
+
+    <div class="sidetext">
+        <p>User Address: </p>
+        <input type="text" id="addpub" name="addpub"><br><br>
+        <button onclick="addPubs()">Add Publisher</button>
+        <button onclick="removePubs()">Remove Publisher</button>
+        <p id="addpubstatus"></p>
+    </div>
+
     <div class="buttons">
         <input type="button" id="test" onClick="testFunc()" value="Test">
     </div>
@@ -113,11 +131,6 @@
 <script>
     const abi = [
     {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
         "inputs": [
             {
                 "internalType": "address",
@@ -131,6 +144,24 @@
             }
         ],
         "name": "addDataOwner",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "pubaddr",
+                "type": "address"
+            }
+        ],
+        "name": "addPublisher",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -163,6 +194,122 @@
         ],
         "name": "clearNotification",
         "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "joinNetwork",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "msgsender",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "pubaddr",
+                "type": "address"
+            }
+        ],
+        "name": "removepublisher",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "subaddr",
+                "type": "address"
+            }
+        ],
+        "name": "removeSubscriber",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "txorigin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "hash",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "uploadHash",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -210,6 +357,25 @@
                 "internalType": "address",
                 "name": "",
                 "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "inputaddr",
+                "type": "address"
+            }
+        ],
+        "name": "getPublishers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
             }
         ],
         "stateMutability": "view",
@@ -292,21 +458,8 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            }
-        ],
-        "name": "joinNetwork",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [],
-        "name": "msgsender",
+        "name": "msgsenderpure",
         "outputs": [
             {
                 "internalType": "address",
@@ -318,26 +471,8 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "subaddr",
-                "type": "address"
-            }
-        ],
-        "name": "removeSubscriber",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [],
-        "name": "txorigin",
+        "name": "txoriginpure",
         "outputs": [
             {
                 "internalType": "address",
@@ -346,28 +481,10 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "hash",
-                "type": "string"
-            },
-            {
-                "internalType": "address",
-                "name": "inputaddr",
-                "type": "address"
-            }
-        ],
-        "name": "uploadHash",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     }
 ]
-    const contractaddr = "0x0cC97D70A3DB9241a3E4d52f51b818A97C8b01E6";
+    const contractaddr = "0x52968188276D5e60861Ab9616e7820e0BBC3cF97";
 
     //onload setup function
     const setupFunc = async() => {
@@ -668,6 +785,114 @@
         }
     }
 
+    //add publisher
+    const addPubs = async() => {
+        console.log("Adding publisher");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new publisher
+                var pub_addr = document.getElementById("addpub").value;
+                console.log(pub_addr);
+                document.getElementById("addpubstatus").innerHTML = "Adding...";
+                var new_pub = await contract.methods.addPublisher(playerAddress, pub_addr).send({from: playerAddress});
+                document.getElementById("addpubstatus").innerHTML = "Success!";
+                console.log(new_pub);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //add publisher
+    const removePubs = async() => {
+        console.log("Removing publisher");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //add new publisher
+                var pub_addr = document.getElementById("addpub").value;
+                console.log(pub_addr);
+                document.getElementById("addpubstatus").innerHTML = "Removing...";
+                var new_pub = await contract.methods.removePublisher(playerAddress, pub_addr).send({from: playerAddress});
+                document.getElementById("addpubstatus").innerHTML = "Success!";
+                console.log(new_pub);
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
+    //get publisher
+    const getPubs = async() => {
+        console.log("Getting publishers list...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //get publishers list
+                var pubs = await contract.methods.getPublisher(playerAddress).call();
+                console.log(pubs);
+
+                var pubs_array = "";
+                for(var i = 0; i < pubs.length; i++){
+                    var num = i+1;
+                    pubs_array += num + ".) " + pubs[i] + "\n";
+                }
+                document.getElementById("pubslist").innerHTML = pubs_array;
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
     //add dataowner
     const addOwner = async() => {
         console.log("Adding dataowner...");
@@ -717,8 +942,8 @@
                 //console.log(contract);
 
                 //add new dataowner
-                var sender = await contract.methods.msgsender().call();
-                var origin = await contract.methods.txorigin().call();
+                var sender = await contract.methods.msgsender().send({from: playerAddress});
+                var origin = await contract.methods.txorigin().send({from: playerAddress});
                 console.log("msg.sender: ");
                 console.log(sender);
                 console.log("tx.origin: ");

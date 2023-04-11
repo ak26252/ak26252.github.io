@@ -74,6 +74,24 @@
 			},
 			{
 				"internalType": "address",
+				"name": "pubaddr",
+				"type": "address"
+			}
+		],
+		"name": "addPublisher",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
 				"name": "subaddr",
 				"type": "address"
 			}
@@ -110,6 +128,43 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "msgsender",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "pubaddr",
+				"type": "address"
+			}
+		],
+		"name": "removepublisher",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -123,7 +178,26 @@
 			}
 		],
 		"name": "removeSubscriber",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "txorigin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -146,7 +220,13 @@
 			}
 		],
 		"name": "uploadHash",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -194,6 +274,25 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "inputaddr",
+				"type": "address"
+			}
+		],
+		"name": "getPublishers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
 			}
 		],
 		"stateMutability": "view",
@@ -277,7 +376,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "msgsender",
+		"name": "msgsenderpure",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -290,7 +389,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "txorigin",
+		"name": "txoriginpure",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -303,7 +402,7 @@
 	}
 ]
 
-	const address = "0x0cC97D70A3DB9241a3E4d52f51b818A97C8b01E6";
+	const address = "0x52968188276D5e60861Ab9616e7820e0BBC3cF97";
 
 	const checkFunc = async() => {
 		if(window.ethereum){
