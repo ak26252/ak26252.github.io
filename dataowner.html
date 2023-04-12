@@ -34,7 +34,8 @@
         <p id="notification"><b>0</b></p>
         <p> new notification(s)!</p><br><br>
         <input type="button" id="refresh" onclick="getNotifications()" value="Manual Refresh">
-        <input type="button" id="getNotificationContents" onclick="getNotificationContents()" value="Get Notifications"><br><br>
+        <input type="button" id="getNotificationContents" onclick="getNotificationContents()" value="Get Notifications">
+        <input type="button" id="clearNotifications" onclick="clearNotifications()" value="Clear Notifications"><br><br>
         <p id="notification_list"></p>
     </div>
 
@@ -493,7 +494,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x91E9184DAb533B152c1943d2A196f9D3aA641177";
+    const contractaddr = "0x9BB7bc61011aD01E104fe6962318e2D5A2E30755";
 
     //onload setup function
     const setupFunc = async() => {
@@ -637,6 +638,39 @@
         }
     }
 
+    //clear notification contents
+    const clearNotifications = async() => {
+        console.log("Clearing notifications...");
+        if(window.ethereum){
+            web3 = new Web3(window.ethereum);
+            const checkWallet = await web3.eth.getAccounts();
+            if(checkWallet.length > 0){
+        
+                //load player address
+                const playerAddress = checkWallet[0];
+                // document.getElementById("owneraddress").innerHTML = playerAddress;
+
+                //load contract
+                const contract = new web3.eth.Contract(abi, contractaddr);
+                //console.log(contract);
+
+                //clear notifications
+                var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
+
+                document.getElementById("notification_list").innerHTML = "";
+                document.getElementById("notification").innerHTML = "0";                
+            }   
+            else{
+                //alert("Wallet not connected. Please connect your wallet!");
+                console.log("Wallet NOT connected :(");
+            }
+        }
+        else{
+            //alert("Wallet not connected. Please connect your wallet!");
+            console.log("Wallet NOT connected :(");
+        }
+    }
+
     //get ipfs hash
     const getIPFSHash = async() => {
         console.log("Getting IPFS hash");
@@ -655,7 +689,7 @@
 
                 //get file hashes
                 var file_hash = await contract.methods.getHash(playerAddress).call();
-                var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
+                //var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
                 console.log(file_hash);
 
                 //print files
