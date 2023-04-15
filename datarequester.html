@@ -56,8 +56,9 @@
     </div>
 
     <div class="ipfshash">
-        <p>IPFS File Hash: </p>
-        <input type="text" id="uploadhash" name="uploadhash"><br><br>
+        <p>IPFS File Hash and Checksum: </p>
+        <input type="text" id="uploadhash" name="uploadhash">
+        <input type="text" id="checksum" name="checksum"><br><br>
         <button onclick="uploadIPFSHash()">Upload File</button>
         <p id="uploadstatus"></p>
     </div>
@@ -225,6 +226,11 @@
                         "internalType": "address",
                         "name": "dataowner",
                         "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "checksum",
+                        "type": "string"
                     }
                 ],
                 "internalType": "struct DSchain.File[]",
@@ -474,6 +480,11 @@
                 "internalType": "address",
                 "name": "inputaddr",
                 "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "checksum",
+                "type": "string"
             }
         ],
         "name": "uploadHash",
@@ -488,7 +499,7 @@
         "type": "function"
     }
 ]
-    const contractaddr = "0x9BB7bc61011aD01E104fe6962318e2D5A2E30755";
+    const contractaddr = "0x400Aa942CE196E91AeB903659729EC928a767950";
 
     //onload setup function
     const setupFunc = async() => {
@@ -675,7 +686,6 @@
                 var file_hash = await contract.methods.getHash(playerAddress).call();
                 //var clear_notif = await contract.methods.clearNotification(playerAddress).send({from: playerAddress});
                 console.log(file_hash);
-
                 //print files
                 var hash_array = "<br />";
                 var tab = "&emsp;" + "|" + "&emsp;";
@@ -683,7 +693,8 @@
                     var hash = "";
                     var date_str = "";
                     var owner = "";
-                    for(var j = 0; j < 3; j++){
+                    var checksum = "";
+                    for(var j = 0; j < 4; j++){
                         if(j==0){
                             hash = file_hash[i][j];
                         }
@@ -691,11 +702,14 @@
                             var date = new Date(file_hash[i][j]*1000);
                             date_str = date.toLocaleString();
                         }
-                        else{
+                        else if(j==2){
                             owner = file_hash[i][j];
                         }
+                        else{
+                            checksum = file_hash[i][j];
+                        }
                     }
-                    hash_array += i+1 + ".) "+ "Hash: " + hash + tab + "Data Owner: " + owner + tab + "Timestamp: " + date_str + "<br />";
+                    hash_array += i+1 + ".) "+ "Hash: " + hash + tab + "Data Owner: " + owner + tab + "Timestamp: " + date_str + tab + "Checksum: " + checksum + "<br />";
                 }
                 document.getElementById("hashlist").innerHTML = hash_array;
                 
@@ -728,8 +742,9 @@
                 //console.log(contract);
 
                 var input_hash = document.getElementById("uploadhash").value;
+                var checksum = document.getElementById("checksum").value;
                 document.getElementById("uploadstatus").innerHTML = "Uploading...";
-                var file_upload = await contract.methods.uploadHash(input_hash, playerAddress).send({from: playerAddress});
+                var file_upload = await contract.methods.uploadHash(input_hash, playerAddress, checksum).send({from: playerAddress});
                 console.log(file_upload);
                 document.getElementById("uploadstatus").innerHTML = "Upload Success!";
             }   

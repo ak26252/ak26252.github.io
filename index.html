@@ -145,6 +145,11 @@
 						"internalType": "address",
 						"name": "dataowner",
 						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "checksum",
+						"type": "string"
 					}
 				],
 				"internalType": "struct DSchain.File[]",
@@ -394,6 +399,11 @@
 				"internalType": "address",
 				"name": "inputaddr",
 				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "checksum",
+				"type": "string"
 			}
 		],
 		"name": "uploadHash",
@@ -409,7 +419,7 @@
 	}
 ]
 
-	const address = "0x9BB7bc61011aD01E104fe6962318e2D5A2E30755";
+	const address = "0x400Aa942CE196E91AeB903659729EC928a767950";
 
 	const checkFunc = async() => {
 		if(window.ethereum){
